@@ -5,10 +5,7 @@ import com.monthlyexpenses.model.Response;
 import com.monthlyexpenses.service.CategoriesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -16,10 +13,15 @@ import java.util.List;
 @RequestMapping("/categories")
 public class CategoriesController {
     @Autowired
-    CategoriesService categoriesService;
+    private CategoriesService categoriesService;
     @PostMapping("/save")
     public ResponseEntity saveCategories(@RequestBody List<Categories> categories){
         Response response=categoriesService.saveCategories(categories);
+        return ResponseEntity.ok(response);
+    }
+    @GetMapping("/get")
+    public ResponseEntity getCategories(@PathVariable Long cate_id){
+        Response response=categoriesService.gaveCategories(cate_id);
         return ResponseEntity.ok(response);
     }
 }
